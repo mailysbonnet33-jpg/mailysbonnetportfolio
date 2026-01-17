@@ -1,0 +1,1177 @@
+/* Déclarez la police - utilisez le/les fichiers présents dans votre dossier fonts/ */
+@font-face {
+  font-family: "Persoepais";
+  src: url("../fonts/Persoepais-Regular.woff2") format("woff2"),
+       url("../fonts/Persoepais-Regular.woff") format("woff"),
+       url("../img/Persoepais-Regular.otf") format("opentype"); /* fallback si pas de woff */
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Si vous avez une variante semi-bold/600, déclarez-la aussi pour éviter un gras simulé */
+@font-face {
+  font-family: "Persoepais";
+  src: url("../fonts/Persoepais-SemiBold.woff2") format("woff2"),
+       url("../fonts/Persoepais-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+/* Diaporama plein écran */
+.accueil-images {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.accueil-nom span {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.wave-letter {
+    display: inline-block;
+    opacity: 0;
+    animation: waveIn 0.8s ease-out forwards;
+}
+
+@keyframes waveIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
+}
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/* Navigation au-dessus du diaporama */
+.navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenu principal au-dessus du diaporama */
+.accueil-main {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 50;
+    text-align: center;
+}
+
+.accueil-nom {
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Animation en vague pour les lettres */
+.wave-letter {
+    display: inline-block;
+    opacity: 0;
+    animation: waveIn 0.8s ease-out forwards;
+    white-space: pre;
+}
+
+@keyframes waveIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
+}
+
+
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: transparent;
+    padding: 15px;
+    text-align: center;
+}
+
+
+.site-footer-accueil {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: transparent;
+    padding: 15px;
+    text-align: center;
+}
+
+/* --- Styles principaux + slideshow --- */
+
+/* Assurez-vous de déclarer votre font @font-face plus haut si nécessaire. Existant plus haut: preloaded woff2 */
+
+/* Reset/minimum */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* navigation above slideshow */
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  pointer-events: auto;
+  background: rgba(255,255,255,0.0); /* transparent — ajuster si besoin */
+}
+
+.navigation-accueil {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  pointer-events: auto;
+  background: transparent; /* transparent — ajuster si besoin */
+  text-decoration-color: #fff;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Lien "maïlys bonnet" en blanc dans la navigation */
+.navigation-accueil .accueil-nom a {
+  color: white;
+  text-decoration: none;
+  font-size: 2rem;
+}
+
+/* slideshow container full viewport, behind page content */
+.accueil-images {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  overflow: hidden;
+  z-index: 0;
+  background: #000;
+}
+
+/* each slide: absolute, cover whole viewport */
+.accueil-images .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translateX(100%); /* off-screen right by default */
+  opacity: 0;
+  transition: transform 900ms cubic-bezier(.22,.9,.32,1), opacity 900ms ease;
+  will-change: transform, opacity;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* active slide sits in viewport */
+.accueil-images .slide.active {
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 1;
+}
+
+/* exiting slide moves left and fades */
+.accueil-images .slide.exit {
+  transform: translateX(-100%);
+  opacity: 0;
+  z-index: 0;
+}
+
+
+
+.accueil-nom {
+    pointer-events: none; /* le texte n'empêche pas le clic sur l'image */
+    font-family: "Persoepais", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 3em;
+    line-height: 1.6;
+    margin-bottom: 3em;
+    text-align: center;
+    color: white;
+    text-transform: lowercase; /* si vous voulez le style */
+    text-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+
+/* footer above background: */
+.site-footer { position: relative; z-index: 5; padding: 2rem; text-align:center; color:#777; }
+
+/* responsive tweaks */
+@media (max-width: 700px) {
+  .accueil-nom { font-size: 2em; }
+}
+
+
+body {
+    margin: 0;
+    background: #fffbf4; /* blanc cassé */
+    color: #222;
+    font-family:'Avenir Next';
+    box-sizing: border-box;
+}
+
+nav {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    right: 20;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: #fffbf4;
+    box-sizing: border-box;
+}
+
+.entete {
+    position: sticky;
+    top: 0;
+    background: #fffbf4; /* couleur de fond pour la lisibilité */
+    z-index: 110; /* au-dessus du reste */
+}
+
+.projets-main {
+    margin-top: 120px;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2em 1em;
+}
+.projets-main h1 {
+    font-size: 2.3em;
+    margin-bottom: 1.5em;
+    font-weight: 600;
+}
+
+.projets-entete {
+    display: flex;
+    align-items: center;      /* Centrage vertical */
+    justify-content: space-between; /* Sépare le titre des boutons */
+    gap: 2em;
+    margin-bottom: 2em;
+    flex-wrap: wrap;          /* Permet le retour à la ligne sur petit écran */
+    margin-bottom: 100px;
+}
+
+.projets-entete h1 {
+  font-size: 2em;
+  font-weight: 700;
+  margin: 0;
+}
+
+.projets-filtres {
+  display: flex;
+  gap: 2em;
+      font-family: "Nunito", Arial, sans-serif;
+    font-weight: 200;
+    font-size: 0.8em;
+}
+
+.projets-filtres button {
+  background: none;
+  border: none;
+  color: #222;
+  font-size: 1em;
+  font-weight: 300;
+  padding: 0 0 5px 0;      /* PAS de margin latéral ici */
+  cursor: pointer;
+  position: relative;
+  display: inline-block;    /* essentiel ! */
+  outline: none;
+  transition: color 0.2s;
+}
+
+.projets-filtres button::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1.5px;
+  width: 0;
+  background: hsl(0, 0%, 40%);
+  transition: width 0.3s;
+}
+
+/* Barre visible au hover ou si actif */
+.projets-filtres button:hover,
+.projets-filtres .filtre-actif {
+  color: #888;
+}
+
+.projets-filtres button:hover::after,
+.projets-filtres .filtre-actif::after {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .projets-entete {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1em;
+  }
+  .projets-filtres {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+}
+.projets-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3em;
+    margin-top: 2em;
+    max-width: 1800px;
+}
+.projet-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #222;
+    transition: filter 0.3s;
+}
+.projet-box img {
+    width: 100%;
+    max-width: 380px;
+    max-height: 280px;
+    object-fit: cover;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    transition: opacity 0.3s;
+}
+.projet-box:hover img {
+    opacity: 0.7;
+    bottom: -4px;
+}
+
+
+
+
+@media (max-width: 1200px) {
+  .projets-grid { grid-template-columns: repeat(3, 1fr);}
+}
+@media (max-width: 900px) {
+  .projets-grid { grid-template-columns: repeat(2, 1fr);}
+}
+@media (max-width: 600px) {
+  .projets-grid { grid-template-columns: 1fr;}
+  .projet-box img { height: 45vw; }
+}
+
+
+.navigation {
+    display: flex;
+    justify-content: space-between; /* Espace entre les deux blocs */
+    align-items: center;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background: #fffbf4;
+    padding: 2em 2em;
+    z-index: 100;
+    padding-right: 2em; /* évite les débordements globaux */
+    box-sizing: border-box;
+}
+.navigation::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.5px;
+    background: #222; /* ou la couleur de ton choix */
+    opacity: 0.15;    /* pour une barre discrète */
+    z-index: 120;
+}
+
+.menubarre {
+    display: flex;
+    justify-content: center;
+    gap: 3em;
+    font-family: "Nunito", Arial, sans-serif;
+    font-weight: 200;
+    font-size: 0.8em;
+}
+
+.menubarre a {
+  text-decoration: none;
+  color: #222;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 5px;
+  transition: color 0.2s;
+}
+
+.menubarre a:hover {
+  color: #888;
+}
+.menubarre a::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 1.5px;
+  background: hsl(0, 0%, 40%);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: width 0.3s;
+}
+
+.menubarre a:hover::after {
+  width: 100%;
+}
+
+.nom {
+    font-family: "Persoepais", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-weight: 550;
+    font-size: 2em;
+    display: flex;
+    flex: 1;
+    display: flex;
+    justify-content: left ; /* Centrage horizontal */
+    align-items: center;
+    padding-left: 2em;
+}
+
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2em;
+    margin: 0;
+    padding: 1em 2em 0 0;
+}
+
+nav li {
+    position: relative;
+}
+
+nav a {
+    text-decoration: none;
+    color: #222;
+    font-weight: 500;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    padding-bottom: 5px;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: #888;
+    bottom: -4px;
+}
+
+nav a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 1.5px;
+    background: #282525;
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    transition: width 0.3s;
+}
+
+.ligne-fine {
+    height: 1px;
+    background: #222;
+    width: 100vw;       /* traverse tout l'écran */
+    margin: 100px 0;
+    border: none;
+    box-sizing: border-box;
+    position: fixed;
+}
+
+
+.cutive-mono-regular {
+  font-family: "Cutive Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.nunito-regular {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.montserrat-regular {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+nav a:hover::after {
+    width: 100%;
+    bottom: -4px;
+}
+
+
+.sous-titre {
+    font-size: 2em;
+    font-weight: 400;
+    color: #666;
+    margin-bottom: 2em;
+}
+
+
+
+.accueil-images {
+    display: grid;
+    gap: 2em;
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.accueil-images img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    transition: box-shadow 0.3s;
+    max-width: 100%;  /* Pour ne jamais dépasser la largeur du conteneur */
+}
+
+.accueil-images img:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+
+
+.projet-img-container {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  height: 220px;
+  overflow: hidden;
+}
+
+.projet-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s, filter 0.3s, opacity 0.3s;
+  display: block;
+}
+
+/* Titre superposé, centré au milieu */
+.projet-img-container .projet-titre {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 1.4em;
+  font-weight: 400;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+  white-space: pre-line;
+  padding: 0.5em 1em;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Effet au hover sur le conteneur */
+.projet-img-container:hover img {
+  filter: grayscale(30%) brightness(0.7); /* image grisée légèrement */
+  transform: scale(1.06);                /* agrandissement */
+  opacity: 1;                         /* optionnel, plus doux */
+}
+
+.projet-img-container:hover .projet-titre {
+  opacity: 1;
+}
+
+.projet-titre {
+    margin-top: 0em;
+    font-size: 1.1em;
+    font-weight: 400;
+    text-align: center;
+    opacity: 0;
+}
+
+.projet-titre:hover {
+    opacity: 1;
+    bottom: -4px;
+}
+
+.projet-main {
+    margin-top: 120px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2em 1em;
+}
+.projet-main h1 {
+    font-family: "Avenir Next", Arial, sans-serif;
+    font-weight: 200;
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+.projet-main h2 {
+    font-size: 1.2em;
+    color: #444;
+    font-weight: 500;
+}
+
+.projet-main h2-italic {
+    font-size: 1.2em;
+    color: #444;
+    font-weight: 400;
+    margin-bottom: 1em;
+    font-style: italic;
+}
+
+.projet-main h3 {
+    font-size: 0.90em;
+    color: #444;
+    font-weight: 500;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    text-align: right;
+    font-style: italic;
+}
+
+.projet-main p {
+    font-size: 1.05em;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 2em;
+}
+
+.projet-main p-italic {
+    font-size: 1.0em;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 2em;
+    font-style: italic;
+}
+
+.projet-images {
+    display: flex;
+    gap: 2em;
+    margin: 8em 0;
+    flex-wrap: wrap;
+}
+.projet-images img {
+    width: 434px;
+    height: 300px;
+    object-fit: cover;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    margin-bottom: 1em;
+}
+
+.projet-images2 {
+    display: flex;
+    gap: 2em;
+    margin: 8em 0;
+    flex-wrap: wrap;
+}
+.projet-images2 img {
+    width: 668px;
+    height: 470px;
+    object-fit: cover;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    margin-bottom: 1em;
+}
+
+.projet-images1 {
+    display: flex;
+    gap: 2em;
+    margin: 8em 0;
+    flex-wrap: wrap;
+}
+.projet-images1 img {
+    width: 1360px;
+    height: 950px;
+    object-fit: cover;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    margin-bottom: 1em;
+}
+
+.projet-images-portrait{
+    display: flex;
+    gap: 2em;
+    margin: 8em 0;
+    flex-wrap: wrap;
+}
+.projet-images-portrait img{
+    width: 434px;
+    height: 600px;
+    max-width: 450px;
+    object-fit: cover;
+}
+
+@media (max-width: 900px) {
+    .projet-images img {
+        width: 600px;
+        height: 400px;
+        align-items: center;
+    }
+    .projet-images {
+        gap: 1em;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+}
+@media (max-width: 900px) {
+    .projet-images-portrait img {
+        width: 200px;
+        height: 340px;
+    }
+    .projet-images-portrait {
+        gap: 1em;
+    }
+}
+
+.projet-images-portrait2{
+    display: flex;
+    gap: 2em;
+    margin: 8em 0;
+    flex-wrap: wrap;
+}
+.projet-images-portrait2 img{
+    width: 668px;
+    height: 940px;
+    max-width: 680px;
+    object-fit: cover;
+}
+
+.text-image-aligned {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3em;
+    align-items: center;
+    margin: 4em 0;
+}
+
+.text-image-aligned .projet-images-portrait2 {
+    margin: 0;
+    display: block;
+}
+
+.text-image-aligned p {
+    margin: 0;
+    text-align: center;
+}
+
+
+@media (max-width: 900px) {
+    .projet-images-portrait2 img {
+        width: 200px;
+        height: 340px;
+    }
+    .projet-images-portrait2 {
+        gap: 1em;
+    }
+    
+    .text-image-aligned {
+        grid-template-columns: 1fr;
+        gap: 2em;
+    }
+}
+
+.about-main {
+    margin-top: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+.about-container {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    max-width: 900px;
+    border-radius: 12px;
+    padding: 2em;
+}
+.about-photo {
+    width: 340px;
+    height: 420px;
+    object-fit: cover;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+}
+.about-text {
+    flex: 1;
+}
+.about-text h1 {
+    margin-top: 0;
+    font-size: 2em;
+    margin-bottom: 1em;
+    font-family: "Avenir Next", Arial, sans-serif;
+    font-weight: 700;
+}
+.about-text p {
+    font-size: 1.15em;
+    line-height: 1.7;
+    color: #444;
+}
+@media (max-width: 900px) {
+    .about-container {
+        flex-direction: column;
+        padding: 1em;
+        gap: 1em;
+    }
+    .about-photo {
+        width: 180px;
+        height: 240px;
+    }
+}
+
+.contact-main {
+    margin-top: 120px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2em 1em;
+}
+.contact-main h1 {
+    font-size: 2em;
+    margin-bottom: 1em;
+    font-weight: 600;
+}
+.contact-infos p {
+    font-size: 1.1em;
+    line-height: 2;
+    color: #444;
+}
+.contact-infos a {
+    color: #222;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+.contact-infos a:hover {
+    color: #888;
+}
+
+  .preserve-lines { white-space: pre-line; }
+
+
+/* style pour le lien PDF : noir, pas de soulignement, agrandit au hover */
+.pdf-link {
+  color: #000;                  /* couleur noire */
+  text-decoration: none;        /* pas de soulignement */
+  display: inline-block;        /* permet scale sans casser le flux */
+  transform-origin: center;
+  transition: transform 150ms ease, color 150ms ease;
+  font-weight: 500;             /* optionnel : épaissir légèrement */
+  will-change: transform;
+}
+
+/* garder même couleur si visité */
+.pdf-link:visited {
+  color: #000;
+}
+
+/* effet au survol */
+.pdf-link:hover,
+.pdf-link:active {
+  transform: scale(1.08);       /* grossit légèrement */
+  text-decoration: none;        /* s'assure qu'aucune soulignure n'apparaît */
+}
+
+/* état focus (pour clavier) — important pour l'accessibilité */
+.pdf-link:focus-visible {
+  outline: 3px solid rgba(0,0,0,0.12);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.site-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
+  font: italic 400 10px "Nunito", sans-serif;
+  color: hsl(0, 0%, 56%);
+  margin-top: 200px;
+    padding: 2em 0;
+}
+:root{
+  --pages: 6;               /* nombre de slides */
+  --page-duration: 5s;      /* durée par slide (visible + transition) : 5s */
+  --anim-duration: calc(var(--pages) * var(--page-duration)); /* ex: 30s */
+  --gap: 30px;
+  --img-w: 700px;           /* largeur cible des images (modifie ici facilement) */
+  --img-h: 800px;           /* hauteur cible des images (modifie ici facilement) */
+  --btn-size: 48px;
+  --arrow-space: 64px;      /* espace latéral réservé pour les flèches (modifie si besoin) */
+  --thumb-radius: 6px;
+  --bg: #fffbf4;
+}
+
+/* reset & base */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);font-family:"Nunito","Avenir Next",Arial,sans-serif;color:#222}
+img{display:block;max-width:100%;height:auto}
+
+/* cacher les radios */
+input[type="radio"][name="page"]{position:absolute;left:-9999px}
+
+/* conteneur principal - on ajoute du padding latéral pour détacher les flèches */
+.gallery{
+  max-width: calc((var(--img-w) * 2) + var(--gap) + (var(--arrow-space) * 2));
+  margin:32px auto;
+  margin-top: 120px;
+  margin-bottom: 130px;
+  position:relative;
+  padding:0 var(--arrow-space); /* espace pour flèches, les flèches n'empiéteront pas sur les images */
+}
+
+/* viewport masque overflow et fixe la largeur visible */
+.gallery-viewport{
+  overflow:hidden;
+  width:100%;
+  background: transparent;
+}
+
+/* piste : N pages côte à côte (slide) */
+.gallery-track{
+  display:flex;
+  width: calc(100% * var(--pages)); /* ex : 600% pour 6 pages */
+  animation: slide var(--anim-duration) linear infinite;
+  will-change: transform;
+}
+
+/* chaque page occupe 1/N de la piste (donc largeur = viewport) */
+.page{
+  width: calc(100% / var(--pages));
+  padding: 12px;
+  display:flex;
+  gap: var(--gap);
+  justify-content: center;
+  align-items: center;
+  box-sizing:border-box;
+}
+
+/* images — taille contrôlable via variables */
+.page img{
+  width: var(--img-w);
+  height: var(--img-h);
+  object-fit: cover;
+  transition: transform 160ms ease;
+  cursor: pointer;
+  display:block;
+}
+
+/* si tu veux limiter la taille maximale pour écrans plus petits sans toucher aux variables */
+.page img{ max-width: calc(100% - 2 * var(--gap)); }
+
+
+
+
+/* chaque page occupe 1/N de la piste (donc largeur = viewport) */
+.page-accueil{
+  width: calc(100% / var(--pages));
+  padding: 0px;
+  display:flex;
+  gap: var(--gap);
+  justify-content: center;
+  align-items: center;
+  box-sizing:border-box;
+}
+
+/* images — taille contrôlable via variables */
+.page-accueil img{
+  width: var(--img-w);
+  height: var(--img-h);
+  object-fit: cover;
+  transition: transform 160ms ease;
+  cursor: pointer;
+  display:block;
+}
+
+/* si tu veux limiter la taille maximale pour écrans plus petits sans toucher aux variables */
+.page-accueil img{ max-width: calc(100% - 2 * var(--gap)); }
+
+
+/* flèches — placées dans la zone de padding (donc détachées des images), sans fond */
+.navs .nav-btn{ display:none; } /* affichées seulement pour la slide active via les radios */
+
+.nav-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:var(--btn-size);
+  height:var(--btn-size);
+  background: transparent;
+  border: none;
+  color: #222;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 28px;
+  cursor: pointer;
+  transition: transform 140ms ease;
+  user-select:none;
+  z-index:40;
+  padding:0;
+}
+/* on place les flèches dans la zone de padding latéral */
+.nav-btn.prev{ left: 8px; }   /* positionnement par rapport au bord du .gallery */
+.nav-btn.next{ right: 8px; }
+
+/* agrandissement au hover (sans fond) */
+.nav-btn:hover{
+  transform: translateY(-50%) scale(1.4);
+}
+
+/* pastilles */
+.dots{ display:flex; justify-content:center; gap:8px; margin-top:12px }
+.dots .dot{
+  width:10px; height:10px; border-radius:50%;
+  background: rgba(0,0,0,0.12); cursor:pointer; display:inline-block;
+}
+
+/* pastille active suivant radio cochée */
+#page1:checked ~ .gallery .dots .dot:nth-of-type(1),
+#page2:checked ~ .gallery .dots .dot:nth-of-type(2),
+#page3:checked ~ .gallery .dots .dot:nth-of-type(3),
+#page4:checked ~ .gallery .dots .dot:nth-of-type(4),
+#page5:checked ~ .gallery .dots .dot:nth-of-type(5),
+#page6:checked ~ .gallery .dots .dot:nth-of-type(6) {
+  background: rgba(0,0,0,0.28);
+}
+
+/* -----------------------------------------------------------
+   Keyframes pour 6 slides :
+   - chaque slide visible ~4s,
+   - transition ~1s,
+   - total par slide = 5s, total cycle = 30s
+   ----------------------------------------------------------- */
+@keyframes slide {
+  /* slide 1 visible */
+  0% { transform: translateX(0%); }
+  13.333333% { transform: translateX(0%); }
+
+  /* transition vers slide2 */
+  16.666667% { transform: translateX(calc(-100% / var(--pages))); }
+  30% { transform: translateX(calc(-100% / var(--pages))); }
+
+  /* transition + slide3 */
+  33.333333% { transform: translateX(calc(-200% / var(--pages))); }
+  46.666667% { transform: translateX(calc(-200% / var(--pages))); }
+
+  50.000000% { transform: translateX(calc(-300% / var(--pages))); }
+  63.333333% { transform: translateX(calc(-300% / var(--pages))); }
+
+  66.666667% { transform: translateX(calc(-400% / var(--pages))); }
+  79.999999% { transform: translateX(calc(-400% / var(--pages))); }
+
+  83.333333% { transform: translateX(calc(-500% / var(--pages))); }
+  100% { transform: translateX(calc(-500% / var(--pages))); }
+}
+
+/* Si un radio est coché, on arrête l'animation et on force la position correspondante. */
+#page1:checked ~ .gallery .gallery-track { animation: none !important; transform: translateX(0%) !important; }
+#page2:checked ~ .gallery .gallery-track { animation: none !important; transform: translateX(calc(-100% / var(--pages))) !important; }
+#page3:checked ~ .gallery .gallery-track { animation: none !important; transform: translateX(calc(-200% / var(--pages))) !important; }
+#page4:checked ~ .gallery .gallery-track { animation: none !important; transform: translateX(calc(-300% / var(--pages))) !important; }
+#page5:checked ~ .gallery .gallery-track { animation: none !important; transform: translateX(calc(-400% / var(--pages))) !important; }
+#page6:checked ~ .gallery .gallery-track { animation: none !important; transform: translateX(calc(-500% / var(--pages))) !important; }
+
+/* Afficher uniquement la paire de flèches correspondant à la page active */
+#page1:checked ~ .gallery .navs .btn-p1,
+#page2:checked ~ .gallery .navs .btn-p2,
+#page3:checked ~ .gallery .navs .btn-p3,
+#page4:checked ~ .gallery .navs .btn-p4,
+#page5:checked ~ .gallery .navs .btn-p5,
+#page6:checked ~ .gallery .navs .btn-p6 {
+  display:flex;
+}
+
+/* Responsive : sous 900px, on passe à 1 image par slide, images fluides */
+@media (max-width: 900px) {
+  :root { --img-w: 100%; --img-h: auto; }
+  .gallery { max-width: 100%; padding: 0 12px; }
+  .page { gap: 8px; padding: 8px; }
+  .page img { width: 100%; height: auto; aspect-ratio: 2 / 1; max-width: 100%; }
+  .nav-btn.prev { left: 4px; }
+  .nav-btn.next { right: 4px; }
+  .nav-btn { --btn-size: 40px; }
+}
+
+ /* conteneur responsive 16:9 */
+  .video-wrap {
+    width: 100%;
+    max-width: 1000px; /* ajuste la largeur maximale ici */
+    margin: 24px auto;
+    margin-top: 150px;
+    position: relative;
+    /* fallback ratio si navigateur ne supporte pas aspect-ratio */
+  }
+  .video-wrap::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%; /* 16:9 */
+  }
+  .video-wrap iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 4px;
+    background: #000;
+  }
+
+  /* optionnel : centrer le titre / légende */
+  .video-caption {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #333;
+    margin-top: 8px;
+    font-family: "Nunito", "Avenir Next", system-ui, Arial, sans-serif;
+  }

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const boutons = document.querySelectorAll('.projets-filtres button');
+    const projets = document.querySelectorAll('.projet-box');
+
+    boutons.forEach(bouton => {
+        bouton.addEventListener('click', function() {
+            // Retire la classe active de tous les boutons
+            boutons.forEach(b => b.classList.remove('filtre-actif'));
+            // Ajoute la classe active au bouton cliqué
+            bouton.classList.add('filtre-actif');
+
+            const categorie = bouton.getAttribute('data-categorie');
+
+            projets.forEach(projet => {
+                // Récupère la catégorie du projet
+                const projetCategorie = projet.getAttribute('data-categorie');
+                // Affiche ou masque selon la catégorie
+                if (categorie === 'all' || projetCategorie === categorie) {
+                    projet.style.display = "";
+                } else {
+                    projet.style.display = "none";
+                }
+            });
+        });
+    });
+});
+</script>
+
+
+<head>
+    <meta charset="UTF-8">
+    <title> MAÏLYS BONNET – Architecture </title>
+    <link rel="stylesheet" href="body.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navigation">
+        <div class="nom">
+            <a href="index.html"> maïlys bonnet </a>
+        </div>
+        <div class="menubarre">
+            <a href="index.html">Home</a>
+            <a href="projets.html">Project</a>
+            <a href="a-propos.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+
+    <main class="projets-main">
+        <div class="projets-entete">
+            <h1>My projects</h1>
+            <div class="projets-filtres">
+                <button data-categorie="all" class="filtre-actif">All</button>
+                <button data-categorie="art">Art</button>
+                <button data-categorie="architecture">Architecture</button>
+                <button data-categorie="objet">Objects</button>
+                <button data-categorie="ecriture">Writtings</button>
+            </div>
+        </div>
+        <div class="projets-grid">
+            <div class="projet-box" data-categorie="art" data-date="2025-07-05">
+                <a href="echoesinvisible.html">
+                    <div class="projet-img-container">
+                        <img src="img/2025/echoesoftheinvisible/DSCF1073.jpg" alt="Art">
+                        <span class="projet-titre">Echoes of the Invisible</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="ecriture" data-date="2025-05-03">
+                <a href="talkingcircles.html">
+                    <div class="projet-img-container">
+                        <img src="img/2025/echoesoftheinvisible/grande.png" alt="Écriture">
+                        <span class="projet-titre">Architecture of Care</span>
+                    </div>
+                </a>    
+            </div>
+            <div class="projet-box" data-categorie="art" data-date="2025-01-20">
+                <a href="monsters.html">
+                    <div class="projet-img-container">
+                        <img src="img/2025/monsters/FINAL_MAÏLYS_BONNET_TDP (glissés) 2.pdf" alt="Art">
+                        <span class="projet-titre">Monsters</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="art" data-date="2024-06-20">
+                <a href="meldingbiesbosch.html">
+                    <div class="projet-img-container">
+                        <img src="img/2024/meldingbiesbosch/MELDING1.jpg" alt="Art">
+                        <span class="projet-titre">Melding with the Biesbosch</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="art" data-date="2024-05-20">
+                <a href="ondulation.html">
+                    <div class="projet-img-container">
+                        <img src="img/2024/ondulation/IMG_2316.png" alt="Art">
+                        <span class="projet-titre">Ondulation</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="ecriture" data-date="2024-05-10">
+                <a href="schoolbarricade.html">
+                    <div class="projet-img-container">
+                        <img src="img/2024/Schoolbarricade/Capture d’écran 2025-10-31 à 14.39.00.png" alt="écriture">
+                        <span class="projet-titre">Barricades dans les écoles</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="art" data-date="2023-12-20">
+                <a href="Void.html">
+                    <div class="projet-img-container">
+                        <img src="img/2023/VOID/VOID_Writ4.jpg" alt="art">
+                        <span class="projet-titre">Void</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="ecriture" data-date="2023-12-10">
+                <a href="Gatesanddoors.html">
+                    <div class="projet-img-container">
+                        <img src="img/2023/gates and doors/Gatesanddoorsofschool-afiltertonon-normativebodies_MAÏLYSBONNET.pdf" alt="écriture">
+                        <span class="projet-titre">Gates and doors of schools</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="architecture" data-date="2022-09-20">
+                <a href="van.html">
+                    <div class="projet-img-container">
+                        <img src="img/2022/van/IMG_1285.HEIC" alt="construction">
+                        <span class="projet-titre">Auto-construction van</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="architecture" data-date="2022-06-20">
+                <a href="effleurerlesséquoias.html">
+                    <div class="projet-img-container">
+                        <img src="img/2022/effleurer les séquoias/COUPE2 Finale - zooom -01.png" alt="Architecture">
+                        <span class="projet-titre">Effleurer les Séquoias</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="architecture" data-date="2022-01-20">
+                <a href="albedorefuge.html">
+                    <div class="projet-img-container">
+                        <img src="img/2022/albedo refuge/FINALE AVEC FENETRES - Image23.tif" alt="Architecture">
+                        <span class="projet-titre">Albedo Refuge</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="ecriture" data-date="2021-05-20">
+                <a href="TadaoAndo.html">
+                    <div class="projet-img-container">
+                        <img src="img/2022/ANDO/TADAO ANDO/IMAGES/d0544924d925b9e1f6933b5558dff396.jpeg" alt="Écriture">
+                        <span class="projet-titre">Analyse Tadao Ando</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="architecture" data-date="2021-06-20">
+                <a href="détachement.html">
+                    <div class="projet-img-container">
+                        <img src="img/2021/détachement/STORY OARD/rendu final story board 3.png" alt="Scénographie">
+                        <span class="projet-titre">Détachement</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="architecture" data-date="2021-01-20">
+                <a href="cohabitationorganique.html">
+                    <div class="projet-img-container">
+                        <img src="img/2021/cohabitation organique/BONNET Maïlys - Co-habitation organique.pdf" alt="Architecture">
+                        <span class="projet-titre">Cohabitation organique</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="objet" data-date="2020-08-01">
+                <a href="mamiegrenier.html">
+                    <div class="projet-img-container">
+                        <img src="img/2021/mamiegrenier/Escalier Maïlys,Jody,Maud-1.png" alt="architecture">
+                        <span class="projet-titre">Mamie monte au grenier</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="objet" data-date="2020-05-01">
+                <a href="caribou.html">
+                    <div class="projet-img-container">
+                        <img src="img/2020/caribou/sacrouge1.png" alt="objet">
+                        <span class="projet-titre">Caribou</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="architecture" data-date="2020-06-20">
+                <a href="saintcergue.html">
+                    <div class="projet-img-container">
+                        <img src="img/2020/saint cergue retreat/jardin extérieur.png" alt="architecture">
+                        <span class="projet-titre">Saint-Cergue Retreat</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="architecture" data-date="2019-06-20">
+                <a href="biggerinterior.html">
+                    <div class="projet-img-container">
+                        <img src="img/2020/Bigger Interior/02_MBMPTW_cartepostale_projet.pdf" alt="architecture">
+                        <span class="projet-titre">Bigger Interior</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="art" data-date="2024-06-20">
+                <a href="suspension.html">
+                    <div class="projet-img-container">
+                        <img src="img/2020/Suspension/G13_Performance_A4 (glissés) 12.png" alt="art">
+                        <span class="projet-titre">Suspension</span>
+                    </div>
+                </a>
+            </div>
+            <div class="projet-box" data-categorie="art" data-date="2024-06-20">
+                <a href="GHouse.html">
+                    <div class="projet-img-container">
+                        <img src="img/2020/G House/MAÏLYS BONNET - MAISON G - FINAL (glissé(e)s).png" alt="Projet 4">
+                        <span class="projet-titre">G House</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Ajoute d'autres projets selon tes besoins -->
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-badge">Maïlys Bonnet — homemade website</div>
+    </footer>
+</body>
+</html>
